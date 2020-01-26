@@ -81,4 +81,7 @@ static Location fetchAny() {
   static  List<Location> fetchAll() {
   return MockLocation.items;
   }
+  static Location fetch(int index) {
+    return MockLocation.items[index];
+  }
 }
