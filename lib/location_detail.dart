@@ -14,11 +14,13 @@ final int locationID;
     
     return Scaffold(
         appBar: AppBar(title: Text(location.name, style: Styles.navBarTitle)),
-        body: Column(
+        body: SingleChildScrollView(
+          child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: _renderBody(context, location),
-        ));
+          
+        )));
   }
 
   List<Widget> _renderBody(BuildContext context, Location
