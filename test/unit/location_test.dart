@@ -8,7 +8,7 @@ void main() {
       expect(location.name, hasLength(greaterThan(0)));
       expect(location.url, hasLength(greaterThan(0)));
 
-      final fetchedLocation = await Location.fetchByID(location.id);
+      final fetchedLocation = await Location.fetchByID(location.url);
       expect(fetchedLocation.name, equals(location.name));
       expect(fetchedLocation.url, equals(location.url));
       expect(fetchedLocation.facts, hasLength(location.facts.length));

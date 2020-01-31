@@ -11,48 +11,59 @@ class Location {
   final int id;
   final String name;
   final String url;
+  final String image;
   final List<LocationFact> facts;
 
-  Location({this.id, this.name, this.url, this.facts});
+  Location({this.id, this.name, this.url, this.image,this.facts});
 
   Location.blank()
       : id = 0,
         name = '',
         url = '',
+        image = '',
         facts = [];
 
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);
 
   static Future<List<Location>> fetchAll() async {
-    var uri = Endpoint.uri('/5e32dd1b320000520094d1f2');
+    Map<String, String> requestHeaders = {
+       'Accept': 'application/json',
+    };
 
-    final resp = await http.get(uri.toString());
+    var uri = Endpoint.uri('/carriers');
+
+    final resp = await http.get(uri.toString(), headers: requestHeaders);
 
     if (resp.statusCode != 200) {
       throw (resp.body);
     }
     List<Location> list = new List<Location>();
+
+    Map data = json.decode(resp.body);
     
-    for (var jsonItem in json.decode(resp.body)) {
+    for (var jsonItem in data['data']) {
       list.add(Location.fromJson(jsonItem));
     }
     return list;
   }
 
-  static Future<Location> fetchByID(int id) async {
-    var uri = Endpoint.uri('/locations/$id');
+  static Future<Location> fetchByID(String url) async {
+    //var uri = Endpoint.uri('/locations/$id');
+    Map<String, String> requestHeaders = {
+       'Accept': 'application/json',
+    };
 
-    final resp = await http.get(uri.toString());
+    final resp = await http.get(url, headers: requestHeaders);
 
     if (resp.statusCode != 200) {
       throw (resp.body);
     }
     final Map<String, dynamic> itemMap = json.decode(resp.body);
-    return Location.fromJson(itemMap);
+    return Location.fromJson(itemMap['data']);
   }
 
   static Future<Location> fetchAny() async {
-    return Location.fetchByID(1);
+    return Location.fetchByID('');
   }
 }

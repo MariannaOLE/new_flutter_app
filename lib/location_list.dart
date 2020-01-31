@@ -44,24 +44,24 @@ class _LocationListState extends State<LocationList> {
       contentPadding: EdgeInsets.all(10.0),
       leading: _itemThumbnail(location),
       title: _itemTitle(location),
-      onTap: () => _navigateToLocationDetail(context, location.id),
+      onTap: () => _navigateToLocationDetail(context, location.url),
     );
   }
 
-  void _navigateToLocationDetail(BuildContext context, int locationID) {
+  void _navigateToLocationDetail(BuildContext context, String locationURL) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => LocationDetail(locationID)));
+        MaterialPageRoute(builder: (context) => LocationDetail(locationURL)));
   }
 
   Widget _itemThumbnail(Location location) {
     Image image;
     try {
-      image = Image.network(location.url, fit: BoxFit.fitWidth);
+      image = Image.network(location.image, fit: BoxFit.fitWidth);
     } catch (e) {
       print("could not load image ${location.url}");
     }
     return Container(
-      constraints: BoxConstraints.tightFor(width: 100.0),
+      constraints: BoxConstraints.tightFor(height: 100.0),
       child: image,
     );
   }

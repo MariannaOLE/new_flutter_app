@@ -3,19 +3,19 @@ import 'models/location.dart';
 import 'styles.dart';
 
 class LocationDetail extends StatefulWidget {
-  final int locationID;
+  final String locationURL;
 
-  LocationDetail(this.locationID);
+  LocationDetail(this.locationURL);
 
   @override
-  createState() => _LocationDetailState(this.locationID);
+  createState() => _LocationDetailState(this.locationURL);
 }
 
 class _LocationDetailState extends State<LocationDetail> {
-  final int locationID;
+  final String locationURL;
   Location location = Location.blank();
 
-  _LocationDetailState(this.locationID);
+  _LocationDetailState(this.locationURL);
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _LocationDetailState extends State<LocationDetail> {
   }
 
   loadData() async {
-    final location = await Location.fetchByID(this.locationID);
+    final location = await Location.fetchByID(this.locationURL);
 
     if (mounted) {
       setState(() {
@@ -47,8 +47,8 @@ class _LocationDetailState extends State<LocationDetail> {
 
   List<Widget> _renderBody(BuildContext context, Location location) {
     var result = List<Widget>();
-    result.add(_bannerImage(location.url, 170.0));
-    result.addAll(_renderFacts(context, location));
+    result.add(_bannerImage(location.image, 100.0));
+    //result.addAll(_renderFacts(context, location));
     return result;
   }
 

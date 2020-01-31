@@ -11,6 +11,7 @@ Location _$LocationFromJson(Map<String, dynamic> json) {
     id: json['id'] as int,
     name: json['name'] as String,
     url: json['url'] as String,
+    image: json['image'] as String,
     facts: (json['facts'] as List)
         ?.map((e) =>
             e == null ? null : LocationFact.fromJson(e as Map<String, dynamic>))
